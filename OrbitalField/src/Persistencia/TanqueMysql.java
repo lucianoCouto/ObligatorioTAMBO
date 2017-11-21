@@ -7,6 +7,7 @@ package Persistencia;
 
 import Servicios.IObjetoCRUD;
 import java.sql.SQLException;
+import java.util.List;
 
 /**
  *
@@ -26,6 +27,11 @@ public class TanqueMysql extends MySql implements IObjetoCRUD{
 
     @Override
     public void eliminar(Object o) {
+        throw new UnsupportedOperationException("No implementado."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public List<Object> listar() {
         throw new UnsupportedOperationException("No implementado."); //To change body of generated methods, choose Tools | Templates.
     }
     
