@@ -5,6 +5,9 @@
  */
 package orbitalfield;
 
+import Dominio.Empresa;
+import Presentacion.frmInicio;
+
 /**
  *
  * @author Luciano
@@ -15,7 +18,9 @@ public class OrbitalField {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+        Empresa e = new Empresa();
+        frmInicio inicio = new frmInicio(e);
+        inicio.setVisible(true);
     }
     
 }
