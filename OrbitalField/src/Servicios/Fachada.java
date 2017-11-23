@@ -5,18 +5,24 @@
  */
 package Servicios;
 
-import Persistencia.TanqueMysql;
+import Persistencia.ClienteMysql;
+import Persistencia.UsuarioMysql;
 
 /**
  *
  * @author Luciano
  */
 public class Fachada {
+
     private static Fachada instancia;
-    private final IObjetoCRUD objetoCRUD;
+    private final IObjetoCRUD clienteCRUD;
+    private final ICiudadCRUD ciudadCRUD;
+    private final IObjetoCRUD usuarioCRUD;
 
     private Fachada() {
-        this.objetoCRUD = new TanqueMysql();
+        this.clienteCRUD = new ClienteMysql();
+        this.ciudadCRUD = new ClienteMysql();
+        this.usuarioCRUD = new UsuarioMysql();
     }
 
     public static Fachada getInstancia() {
@@ -25,8 +31,15 @@ public class Fachada {
         }
         return instancia;
     }
-   
-    public IObjetoCRUD getObjetoCRUD() {
-        return objetoCRUD;
+
+    public IObjetoCRUD getClienteCRUD() {
+        return clienteCRUD;
+    }
+
+    public ICiudadCRUD getCiudadCRUD() {
+        return ciudadCRUD;
+    }
+    public IObjetoCRUD getUsuarioCRUD(){
+        return usuarioCRUD;
     }
 }

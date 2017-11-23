@@ -8,6 +8,7 @@ package Presentacion;
 import Dominio.Cliente;
 import Dominio.Empresa;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ListSelectionModel;
@@ -23,9 +24,10 @@ public class frmABMCliente extends javax.swing.JFrame {
     Empresa empresa;
     static frmABMCliente instancia;
     Cliente cliente;
-    private ModeloTblCliente modeloTblCliente;
-    private ListSelectionModel lsmClientes;
-
+    private final ModeloTblCliente modeloTblCliente;
+    private final ListSelectionModel lsmClientes;
+    
+    
     public frmABMCliente(Empresa e) throws SQLException {
         initComponents();
         empresa = e;
@@ -33,6 +35,7 @@ public class frmABMCliente extends javax.swing.JFrame {
         modeloTblCliente = new ModeloTblCliente();
         this.tblClientes.setModel(modeloTblCliente);
         this.listarClientes();
+        this.rellenarComboBox();
         lsmClientes = tblClientes.getSelectionModel();
         lsmClientes.addListSelectionListener(new ListenerCliente());
         tblClientes.setSelectionModel(lsmClientes);
@@ -44,7 +47,6 @@ public class frmABMCliente extends javax.swing.JFrame {
     }
 
     private class ListenerCliente implements ListSelectionListener {
-
         @Override
         public void valueChanged(ListSelectionEvent e) {
             int select = tblClientes.getSelectedRow();
@@ -56,7 +58,8 @@ public class frmABMCliente extends javax.swing.JFrame {
             }
         }
     }
-
+    
+    
     public static frmABMCliente getInstancia(Empresa e) throws SQLException {
         if (instancia == null) {
             instancia = new frmABMCliente(e);
@@ -71,6 +74,16 @@ public class frmABMCliente extends javax.swing.JFrame {
         this.cmbCiudad.getItemAt(0);
     }
 
+    private void rellenarComboBox() {
+        ArrayList<String> ciudades = empresa.listarCiudades();
+        cmbCiudad.removeAllItems();
+        for(int i=0;i<ciudades.size();i++){
+            String ciudad = ciudades.get(i);
+            cmbCiudad.addItem(ciudad);
+        }
+        this.cmbCiudad.setSelectedIndex(0);
+    }
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -245,15 +258,41 @@ public class frmABMCliente extends javax.swing.JFrame {
     }//GEN-LAST:event_btnGuardarClienteActionPerformed
 
     private void btnModificarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarClienteActionPerformed
-
+        Cliente c = new Cliente();
+        c.setIdCliente(cliente.getIdCliente());
+        c.setNombreCliente(this.txtNombreCliente.getText());
+        c.setRazonSocial(this.txtRazonSocial.getText());
+        c.setRut(Integer.parseInt(this.txtRutCliente.getText()));
+        c.setCiudad(String.valueOf(this.cmbCiudad.getSelectedItem()));
+        try {
+            empresa.modificarCliente(c);
+        } catch (SQLException ex) {
+            Logger.getLogger(frmABMCliente.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        try {
+            this.listarClientes();
+        } catch (SQLException ex) {
+            Logger.getLogger(frmABMCliente.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        this.limpiar();
     }//GEN-LAST:event_btnModificarClienteActionPerformed
 
     private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
-
+        this.limpiar();
     }//GEN-LAST:event_btnLimpiarActionPerformed
 
     private void btnEliminarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarClienteActionPerformed
-
+        try {
+            empresa.eliminarCliente(this.cliente);
+        } catch (SQLException ex) {
+            Logger.getLogger(frmABMCliente.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        try {
+            this.listarClientes();
+        } catch (SQLException ex) {
+            Logger.getLogger(frmABMCliente.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        this.limpiar();
     }//GEN-LAST:event_btnEliminarClienteActionPerformed
 
     /**
