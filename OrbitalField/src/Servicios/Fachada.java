@@ -10,6 +10,7 @@ import Persistencia.ClienteMysql;
 import Persistencia.TanqueMysql;
 import Persistencia.UsuarioMysql;
 import Persistencia.VacaMysql;
+import Persistencia.VentaMysql;
 
 /**
  *
@@ -19,21 +20,24 @@ public class Fachada {
 
     private static Fachada instancia;
     private final IObjetoCRUD clienteObjectCRUD;
+    private final IClienteCRUD clienteCRUD;
     private final ICiudadCRUD ciudadCRUD;
     private final IObjetoCRUD usuarioObjectCRUD;
     private final IUsuarioCRUD usuarioCRUD;
     private final IObjetoCRUD vacaObjectCRUD;
     private final ICategoriaCRUD categoriaCRUD;
     private final IObjetoCRUD tanqueObjectCRUD;
-    
+    private final IVentaCRUD ventaCRUD;
     private Fachada() {
         this.clienteObjectCRUD = new ClienteMysql();
+        this.clienteCRUD = new ClienteMysql();
         this.ciudadCRUD = new ClienteMysql();
         this.usuarioObjectCRUD = new UsuarioMysql();
         this.usuarioCRUD = new UsuarioMysql();
         this.vacaObjectCRUD = new VacaMysql();
         this.categoriaCRUD = new CategoriaMysql();
         this.tanqueObjectCRUD = new TanqueMysql();
+        this.ventaCRUD = new VentaMysql();
     }
 
     public static Fachada getInstancia() {
@@ -69,4 +73,13 @@ public class Fachada {
     public IObjetoCRUD getTanqueObjectCRUD() {
         return tanqueObjectCRUD;
     }
+
+    public IClienteCRUD getClienteCRUD() {
+        return clienteCRUD;
+    }
+
+    public IVentaCRUD getVentaCRUD() {
+        return ventaCRUD;
+    }
+    
 }

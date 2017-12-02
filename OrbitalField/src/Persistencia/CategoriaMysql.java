@@ -20,7 +20,7 @@ public class CategoriaMysql extends MySql implements ICategoriaCRUD {
     @Override
     public void modificar(Object o) {
         CategoriaLeche c = (CategoriaLeche) o;
-        strSQL = "UPDATE categorialeche SET precio = '" + c.getPrecioCategoria()+ "', tipoCategoria = '" + c.getTipoCategoria() + " WHERE idCategoria = " + c.getIdCategoria();
+        strSQL = "UPDATE categorialeche SET precio = '" + c.getPrecioCategoria() + "', tipoCategoria = '" + c.getTipoCategoria() + " WHERE idCategoria = " + c.getIdCategoria();
         update(strSQL);
     }
 
@@ -46,7 +46,7 @@ public class CategoriaMysql extends MySql implements ICategoriaCRUD {
     @Override
     public CategoriaLeche buscar(int id) {
         CategoriaLeche c = new CategoriaLeche();
-        String cadena = "SELECT * FROM categorialeche WHERE idCategoria="+id;
+        String cadena = "SELECT * FROM categorialeche WHERE idCategoria=" + id;
         this.seleccionar(cadena);
         try {
             while (rs.next()) {
@@ -60,5 +60,23 @@ public class CategoriaMysql extends MySql implements ICategoriaCRUD {
         }
         return c;
     }
-    
+
+    @Override
+    public CategoriaLeche buscarXTipo(String tipo) {
+        CategoriaLeche c = new CategoriaLeche();
+        String cadena = "SELECT * FROM categorialeche WHERE tipoCategoria ='" + tipo + "'";
+        this.seleccionar(cadena);
+        try {
+            while (rs.next()) {
+                c.setIdCategoria(rs.getInt("idCategoria"));
+                c.setPrecioCategoria(rs.getFloat("precio"));
+                c.setTipoCategoria(rs.getString("tipoCategoria"));
+            }
+            rs.close();
+        } catch (SQLException ex) {
+            ex.getMessage();
+        }
+        return c;
+    }
+
 }

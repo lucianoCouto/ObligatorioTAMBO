@@ -15,7 +15,7 @@ public class Venta {
     private int idVenta;
     private float precioTotal;
     private Cliente cliente;
-    private ArrayList<LineasDeVenta> lineas;
+    private ArrayList<LineaDeVenta> lineas;
 
     public int getIdVenta() {
         return idVenta;
@@ -41,11 +41,11 @@ public class Venta {
         this.cliente = cliente;
     }
 
-    public ArrayList<LineasDeVenta> getLineas() {
+    public ArrayList<LineaDeVenta> getLineas() {
         return lineas;
     }
 
-    public void setLineas(ArrayList<LineasDeVenta> lineas) {
+    public void setLineas(ArrayList<LineaDeVenta> lineas) {
         this.lineas = lineas;
     }
     

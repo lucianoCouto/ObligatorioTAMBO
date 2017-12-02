@@ -5,20 +5,19 @@
  */
 package Servicios;
 
-import Dominio.CategoriaLeche;
+import Dominio.Venta;
+import Dominio.LineaDeVenta;
 import java.util.List;
 
 /**
  *
  * @author Luciano
  */
-public interface ICategoriaCRUD {
+public interface IVentaCRUD {
+
+    public void guardar(Venta v);
+
+    public void guardarLineas(int idVenta, LineaDeVenta linea);
     
-    public void modificar(Object o);
-    
-    public List<CategoriaLeche> listar();
-    
-    public CategoriaLeche buscar(int id);
-    
-    public CategoriaLeche buscarXTipo(String tipo);
+    public List<Venta> listar();
 }

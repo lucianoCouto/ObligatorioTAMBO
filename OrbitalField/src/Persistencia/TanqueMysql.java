@@ -51,7 +51,7 @@ public class TanqueMysql extends MySql implements IObjetoCRUD {
                 Tanque t = new Tanque();
                 t.setIdTanque(rs.getInt("idTanque"));
                 t.setCantLitros(rs.getInt("cantLitros"));
-                t.setTopeDeLitros(rs.getInt("topTanque"));
+                t.setTopeDeLitros(rs.getInt("topeTanque"));
                 t.setNumero(rs.getInt("numero"));
                 t.setCategoria(fachada.getCategoriaCRUD().buscar(rs.getInt("idCategoria")));
                 objetos.add(t);

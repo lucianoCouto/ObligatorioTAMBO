@@ -128,6 +128,10 @@ public class Empresa {
     public List<CategoriaLeche> listarCategoria() {
         return fachada.getCategoriaCRUD().listar();
     }
+    
+    public CategoriaLeche buscarCategoriaXTipo(String tipo){
+        return fachada.getCategoriaCRUD().buscarXTipo(tipo);
+    }
     // </editor-fold>
     
     // <editor-fold defaultstate="collapsed" desc="Tanques">
@@ -155,4 +159,15 @@ public class Empresa {
         return tanques;
     }
     // </editor-fold>
+    
+    // <editor-fold defaultstate="collapsed" desc="Ventas">
+    public void guardarVenta(Venta v) throws SQLException {
+        this.fachada.getVentaCRUD().guardar(v);
+    }
+    
+    public List<Venta> listarVentas(){
+        return this.fachada.getVentaCRUD().listar();
+    }
+    // </editor-fold>
+    
 }

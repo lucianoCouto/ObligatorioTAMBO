@@ -7,6 +7,7 @@ package Persistencia;
 
 import Dominio.Cliente;
 import Servicios.ICiudadCRUD;
+import Servicios.IClienteCRUD;
 import Servicios.IObjetoCRUD;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -16,7 +17,7 @@ import java.util.List;
  *
  * @author Luciano
  */
-public class ClienteMysql extends MySql implements IObjetoCRUD, ICiudadCRUD {
+public class ClienteMysql extends MySql implements IObjetoCRUD, ICiudadCRUD, IClienteCRUD {
 
     @Override
     public void guardar(Object o) throws SQLException {
@@ -64,7 +65,6 @@ public class ClienteMysql extends MySql implements IObjetoCRUD, ICiudadCRUD {
 
     @Override
     public ArrayList<String> listarCiudades() {
-
         ArrayList<String> ciudades = new ArrayList<>();
         this.seleccionar("SELECT nombreCiudad FROM ciudades");
         try {
@@ -77,6 +77,27 @@ public class ClienteMysql extends MySql implements IObjetoCRUD, ICiudadCRUD {
             System.err.println("SQLException: " + ex.getMessage());
         }
         return ciudades;
+    }
+
+    @Override
+    public Cliente buscar(int id) {
+        Cliente c = new Cliente();
+        String cadena = "SELECT * FROM clientes WHERE idCliente = " + id;
+        this.seleccionar(cadena);
+        try {
+            while (rs.next()) {
+                c.setIdCliente(rs.getInt("idCliente"));
+                c.setRazonSocial(rs.getString("razonSocial"));
+                c.setNombreCliente(rs.getString("nombre"));
+                c.setRut(rs.getInt("rut"));
+                c.setCiudad(rs.getString("nombreCiudad"));
+                
+            }
+            rs.close();
+        } catch (SQLException ex) {
+            ex.getMessage();
+        }
+        return c;
     }
 
 }

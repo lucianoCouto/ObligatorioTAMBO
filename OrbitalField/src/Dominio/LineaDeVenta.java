@@ -9,7 +9,8 @@ package Dominio;
  *
  * @author Luciano
  */
-public class LineasDeVenta {
+public class LineaDeVenta {
+
     private int idLineaDeVenta;
     private CategoriaLeche categoria;
     private int cantidadDeLitros;
