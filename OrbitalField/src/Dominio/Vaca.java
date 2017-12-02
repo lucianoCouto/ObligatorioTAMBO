@@ -17,6 +17,7 @@ public class Vaca {
     private String raza;
     private int peso;
     private Date fechaDeNacimiento;
+    private boolean estaActiva;
     private CategoriaLeche categoriaDeLeche;
 
     public int getIdVaca() {
@@ -59,6 +60,14 @@ public class Vaca {
         this.fechaDeNacimiento = fechaDeNacimiento;
     }
 
+    public boolean getEstaActiva() {
+        return estaActiva;
+    }
+
+    public void setEstaActiva(boolean estaActiva) {
+        this.estaActiva = estaActiva;
+    }
+    
     public CategoriaLeche getCategoriaDeLeche() {
         return categoriaDeLeche;
     }

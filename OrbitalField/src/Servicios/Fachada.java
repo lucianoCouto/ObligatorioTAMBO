@@ -5,8 +5,10 @@
  */
 package Servicios;
 
+import Persistencia.CategoriaMysql;
 import Persistencia.ClienteMysql;
 import Persistencia.UsuarioMysql;
+import Persistencia.VacaMysql;
 
 /**
  *
@@ -15,14 +17,19 @@ import Persistencia.UsuarioMysql;
 public class Fachada {
 
     private static Fachada instancia;
-    private final IObjetoCRUD clienteCRUD;
+    private final IObjetoCRUD clienteObjectCRUD;
     private final ICiudadCRUD ciudadCRUD;
-    private final IObjetoCRUD usuarioCRUD;
-
+    private final IObjetoCRUD usuarioObjectCRUD;
+    private final IUsuarioCRUD usuarioCRUD;
+    private final IObjetoCRUD vacasObjectCRUD;
+    private final ICategoriaCRUD categoriaCRUD;
     private Fachada() {
-        this.clienteCRUD = new ClienteMysql();
+        this.clienteObjectCRUD = new ClienteMysql();
         this.ciudadCRUD = new ClienteMysql();
+        this.usuarioObjectCRUD = new UsuarioMysql();
         this.usuarioCRUD = new UsuarioMysql();
+        this.vacasObjectCRUD = new VacaMysql();
+        this.categoriaCRUD = new CategoriaMysql();
     }
 
     public static Fachada getInstancia() {
@@ -32,14 +39,27 @@ public class Fachada {
         return instancia;
     }
 
-    public IObjetoCRUD getClienteCRUD() {
-        return clienteCRUD;
+    public IObjetoCRUD getClienteObjectCRUD() {
+        return clienteObjectCRUD;
     }
 
     public ICiudadCRUD getCiudadCRUD() {
         return ciudadCRUD;
     }
-    public IObjetoCRUD getUsuarioCRUD(){
+    
+    public IObjetoCRUD getUsuarioObjectCRUD(){
+        return usuarioObjectCRUD;
+    }
+    
+    public IUsuarioCRUD getUsuarioCRUD(){
         return usuarioCRUD;
+    }
+    
+    public IObjetoCRUD getVacaObjectCRUD(){
+        return vacasObjectCRUD;
+    }
+    
+    public ICategoriaCRUD getCategoriaCRUD(){
+        return categoriaCRUD;
     }
 }

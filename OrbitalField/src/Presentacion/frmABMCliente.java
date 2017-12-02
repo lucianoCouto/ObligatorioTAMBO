@@ -58,8 +58,7 @@ public class frmABMCliente extends javax.swing.JFrame {
             }
         }
     }
-    
-    
+
     public static frmABMCliente getInstancia(Empresa e) throws SQLException {
         if (instancia == null) {
             instancia = new frmABMCliente(e);
@@ -104,7 +103,7 @@ public class frmABMCliente extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         tblClientes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -295,9 +294,6 @@ public class frmABMCliente extends javax.swing.JFrame {
         this.limpiar();
     }//GEN-LAST:event_btnEliminarClienteActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnEliminarCliente;

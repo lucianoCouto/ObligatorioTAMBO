@@ -7,6 +7,7 @@ package Persistencia;
 
 import Dominio.Usuario;
 import Servicios.IObjetoCRUD;
+import Servicios.IUsuarioCRUD;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,7 +16,7 @@ import java.util.List;
  *
  * @author Luciano
  */
-public class UsuarioMysql extends MySql implements IObjetoCRUD{
+public class UsuarioMysql extends MySql implements IObjetoCRUD, IUsuarioCRUD {
 
     @Override
     public void guardar(Object o) throws SQLException {
@@ -59,5 +60,67 @@ public class UsuarioMysql extends MySql implements IObjetoCRUD{
         }
         return objetos;
     }
-    
+
+    @Override
+    public Usuario buscarUsuarioXNombreYContrasena(String usuario, String contrasena) {
+        Usuario u = new Usuario();
+        String cadena = "SELECT * FROM usuarios WHERE nombreUsuario = '" + usuario + "' AND contrasena = '" + contrasena + "' AND tipo <> 'Encargado de planta'";
+        this.seleccionar(cadena);
+        try {
+            while (rs.next()) {
+                u.setIdUsuario(rs.getInt("idUsuario"));
+                u.setNombre(rs.getString("nombre"));
+                u.setNombreDeUsuario(rs.getString("nombreUsuario"));
+                u.setContrasena(rs.getString("contrasena"));
+                u.setTipo(rs.getString("tipo"));
+            }
+            rs.close();
+        } catch (SQLException ex) {
+            ex.getMessage();
+        }
+        return u;
+    }
+
+    @Override
+    public List<Usuario> listarUsuariosParaMaster() {
+        List<Usuario> usuarios = new ArrayList<>();
+        this.seleccionar("SELECT * FROM usuarios WHERE tipo <> 'master'");
+        try {
+            while (rs.next()) {
+                Usuario u = new Usuario();
+                u.setIdUsuario(rs.getInt("idUsuario"));
+                u.setNombre(rs.getString("nombre"));
+                u.setNombreDeUsuario(rs.getString("nombreUsuario"));
+                u.setContrasena(rs.getString("contrasena"));
+                u.setTipo(rs.getString("tipo"));
+                usuarios.add(u);
+            }
+            rs.close();
+        } catch (SQLException ex) {
+            System.err.println("SQLException: " + ex.getMessage());
+        }
+        return usuarios;
+    }
+
+    @Override
+    public List<Usuario> listarUsuariosParaAdmin() {
+        List<Usuario> usuarios = new ArrayList<>();
+        this.seleccionar("SELECT * FROM usuarios WHERE tipo <> 'master' AND tipo <> 'administrador'");
+        try {
+            while (rs.next()) {
+                Usuario u = new Usuario();
+                u.setIdUsuario(rs.getInt("idUsuario"));
+                u.setNombre(rs.getString("nombre"));
+                u.setNombreDeUsuario(rs.getString("nombreUsuario"));
+                u.setContrasena(rs.getString("contrasena"));
+                u.setTipo(rs.getString("tipo"));
+                usuarios.add(u);
+            }
+            rs.close();
+        } catch (SQLException ex) {
+            System.err.println("SQLException: " + ex.getMessage());
+        }
+        return usuarios;
+    }
+
 }

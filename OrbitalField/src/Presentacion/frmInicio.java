@@ -6,6 +6,7 @@
 package Presentacion;
 
 import Dominio.Empresa;
+import Dominio.Usuario;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -15,8 +16,11 @@ import java.util.logging.Logger;
  * @author Luciano
  */
 public class frmInicio extends javax.swing.JFrame {
+
     Empresa empresa;
     static frmInicio instancia;
+    static Usuario u;
+
     /**
      * Creates new form frmInicio
      */
@@ -24,14 +28,14 @@ public class frmInicio extends javax.swing.JFrame {
         initComponents();
         empresa = e;
     }
-    
-    public static frmInicio getInstancia(Empresa e) throws SQLException{
-        if(instancia == null){
+
+    public static frmInicio getInstancia(Empresa e) throws SQLException {
+        if (instancia == null) {
             instancia = new frmInicio(e);
         }
         return instancia;
     }
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -44,19 +48,15 @@ public class frmInicio extends javax.swing.JFrame {
         jMenu1 = new javax.swing.JMenu();
         txtNombreDeUsuario = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
-        txtContrasena = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         btnIngresar = new javax.swing.JButton();
         lblMensajeInicioSesion = new javax.swing.JLabel();
+        txtContrasenaUsuario = new javax.swing.JPasswordField();
         jMenuBar1 = new javax.swing.JMenuBar();
-        jMenu2 = new javax.swing.JMenu();
-        btnABMVacas = new javax.swing.JMenuItem();
-        btnABMTanques = new javax.swing.JMenuItem();
-        btnABMClientes = new javax.swing.JMenuItem();
 
         jMenu1.setText("jMenu1");
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         txtNombreDeUsuario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -66,37 +66,14 @@ public class frmInicio extends javax.swing.JFrame {
 
         jLabel1.setText("Nombre de usuario");
 
-        txtContrasena.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
-
         jLabel2.setText("Contraseña");
 
         btnIngresar.setText("Ingresar");
-
-        lblMensajeInicioSesion.setText("[Mensaje]");
-
-        jMenu2.setText("Administracion");
-
-        btnABMVacas.setText("Vacas");
-        btnABMVacas.addActionListener(new java.awt.event.ActionListener() {
+        btnIngresar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnABMVacasActionPerformed(evt);
+                btnIngresarActionPerformed(evt);
             }
         });
-        jMenu2.add(btnABMVacas);
-
-        btnABMTanques.setText("Tanques");
-        jMenu2.add(btnABMTanques);
-
-        btnABMClientes.setText("Clientes");
-        btnABMClientes.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnABMClientesActionPerformed(evt);
-            }
-        });
-        jMenu2.add(btnABMClientes);
-
-        jMenuBar1.add(jMenu2);
-
         setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -104,35 +81,33 @@ public class frmInicio extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(93, Short.MAX_VALUE)
+                .addContainerGap(91, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
+                    .addComponent(lblMensajeInicioSesion)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addComponent(btnIngresar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(lblMensajeInicioSesion))
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel2)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(txtContrasena, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(txtNombreDeUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(81, 81, 81))
+                        .addComponent(jLabel1)
+                        .addComponent(jLabel2)
+                        .addComponent(txtNombreDeUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, 175, Short.MAX_VALUE)
+                        .addComponent(txtContrasenaUsuario)))
+                .addGap(83, 83, 83))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(34, 34, 34)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtNombreDeUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel2)
-                .addGap(1, 1, 1)
-                .addComponent(txtContrasena, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(13, 13, 13)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnIngresar)
-                    .addComponent(lblMensajeInicioSesion))
-                .addContainerGap(59, Short.MAX_VALUE))
+                .addGap(3, 3, 3)
+                .addComponent(txtContrasenaUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnIngresar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(lblMensajeInicioSesion)
+                .addContainerGap(44, Short.MAX_VALUE))
         );
 
         pack();
@@ -142,36 +117,40 @@ public class frmInicio extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtNombreDeUsuarioActionPerformed
 
-    private void btnABMVacasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnABMVacasActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnABMVacasActionPerformed
+    private void btnIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngresarActionPerformed
+        String usuario = this.txtNombreDeUsuario.getText();
+        String contrasena;
+        char[] contrasenaChar = this.txtContrasenaUsuario.getPassword();
+        contrasena = String.valueOf(contrasenaChar);
 
-    private void btnABMClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnABMClientesActionPerformed
-        frmABMCliente frmC;
-        try {
-            frmC = frmABMCliente.getInstancia(empresa);
-            frmC.setVisible(true);
-        } catch (SQLException ex) {
-            Logger.getLogger(frmInicio.class.getName()).log(Level.SEVERE, null, ex);
+        u = empresa.buscarUsuarioXNombreYContrasena(usuario, contrasena);
+        if (u.getIdUsuario() > 0) {
+            frmBienvenida frmB;
+            empresa.usuarioIniciado = u;
+            try {
+                frmB = frmBienvenida.getInstancia(empresa);
+                frmB.setVisible(true);
+            } catch (SQLException ex) {
+                Logger.getLogger(frmInicio.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            dispose();
+        } else {
+            this.lblMensajeInicioSesion.setText("Nombre de usuario y/o contraseña incorrectos.");
         }
-    }//GEN-LAST:event_btnABMClientesActionPerformed
+    }//GEN-LAST:event_btnIngresarActionPerformed
 
     /**
      * @param args the command line arguments
      */
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JMenuItem btnABMClientes;
-    private javax.swing.JMenuItem btnABMTanques;
-    private javax.swing.JMenuItem btnABMVacas;
     private javax.swing.JButton btnIngresar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JLabel lblMensajeInicioSesion;
-    private javax.swing.JTextField txtContrasena;
+    private javax.swing.JPasswordField txtContrasenaUsuario;
     private javax.swing.JTextField txtNombreDeUsuario;
     // End of variables declaration//GEN-END:variables
 }

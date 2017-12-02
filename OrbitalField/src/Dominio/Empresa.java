@@ -17,27 +17,28 @@ import java.util.List;
 public class Empresa {
     
     private final Fachada fachada;
+    public Usuario usuarioIniciado; 
     
     public Empresa() {
         fachada = Fachada.getInstancia();
     }
     
     public void guardarCliente (Cliente c) throws SQLException{
-        this.fachada.getClienteCRUD().guardar(c);
+        this.fachada.getClienteObjectCRUD().guardar(c);
     }
     
     public void modificarCliente (Cliente c) throws SQLException{
-        this.fachada.getClienteCRUD().modificar(c);
+        this.fachada.getClienteObjectCRUD().modificar(c);
     }
 
     public void eliminarCliente (Cliente c) throws SQLException{
-        this.fachada.getClienteCRUD().eliminar(c);
+        this.fachada.getClienteObjectCRUD().eliminar(c);
     }
 
     public List<Cliente> listarClientes() {
         List<Cliente> clientes = new ArrayList<>();
         
-        List<Object> lista =  this.fachada.getClienteCRUD().listar();
+        List<Object> lista =  this.fachada.getClienteObjectCRUD().listar();
         
         for(int i = 0; i< lista.size(); i++){
             Cliente c = (Cliente) lista.get(i);
@@ -51,21 +52,21 @@ public class Empresa {
     }
     
     public void guardarUsuario (Usuario u) throws SQLException{
-        this.fachada.getUsuarioCRUD().guardar(u);
+        this.fachada.getUsuarioObjectCRUD().guardar(u);
     }
     
     public void modificarUsuario (Usuario u) throws SQLException{
-        this.fachada.getUsuarioCRUD().modificar(u);
+        this.fachada.getUsuarioObjectCRUD().modificar(u);
     }
 
     public void eliminarUsuario (Usuario u) throws SQLException{
-        this.fachada.getUsuarioCRUD().eliminar(u);
+        this.fachada.getUsuarioObjectCRUD().eliminar(u);
     }
 
     public List<Usuario> listarUsuarios() {
         List<Usuario> usuarios = new ArrayList<>();
         
-        List<Object> lista =  this.fachada.getUsuarioCRUD().listar();
+        List<Object> lista =  this.fachada.getUsuarioObjectCRUD().listar();
         
         for(int i = 0; i< lista.size(); i++){
             Usuario u = (Usuario) lista.get(i);
@@ -74,4 +75,15 @@ public class Empresa {
         return usuarios;
     }
     
+    public Usuario buscarUsuarioXNombreYContrasena(String usuario, String contrasena){
+        return fachada.getUsuarioCRUD().buscarUsuarioXNombreYContrasena(usuario, contrasena);
+    }
+    
+    public List<Usuario> listarUsuariosParaMaster(){
+        return this.fachada.getUsuarioCRUD().listarUsuariosParaMaster();
+    }
+    
+    public List<Usuario> listarUsuariosParaAdmin(){
+        return this.fachada.getUsuarioCRUD().listarUsuariosParaAdmin();
+    }   
 }
