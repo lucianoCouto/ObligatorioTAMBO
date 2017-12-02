@@ -7,6 +7,8 @@ package Persistencia;
 
 import Dominio.CategoriaLeche;
 import Servicios.ICategoriaCRUD;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -18,18 +20,45 @@ public class CategoriaMysql extends MySql implements ICategoriaCRUD {
     @Override
     public void modificar(Object o) {
         CategoriaLeche c = (CategoriaLeche) o;
-        strSQL = "UPDATE categorias SET nombre = '" + u.getNombre() + "', nombreUsuario = '" + u.getNombreDeUsuario() + "', contrasena = " + u.getContrasena() + "', tipo = " + u.getTipo() + " WHERE idUsuario = " + u.getIdUsuario();
+        strSQL = "UPDATE categorialeche SET precio = '" + c.getPrecioCategoria()+ "', tipoCategoria = '" + c.getTipoCategoria() + " WHERE idCategoria = " + c.getIdCategoria();
         update(strSQL);
     }
 
     @Override
     public List<CategoriaLeche> listar() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        List<CategoriaLeche> categorias = new ArrayList<>();
+        this.seleccionar("SELECT * FROM categorialeche");
+        try {
+            while (rs.next()) {
+                CategoriaLeche c = new CategoriaLeche();
+                c.setIdCategoria(rs.getInt("idCategoria"));
+                c.setPrecioCategoria(rs.getFloat("precio"));
+                c.setTipoCategoria(rs.getString("tipoCategoria"));
+                categorias.add(c);
+            }
+            rs.close();
+        } catch (SQLException ex) {
+            System.err.println("SQLException: " + ex.getMessage());
+        }
+        return categorias;
     }
 
     @Override
     public CategoriaLeche buscar(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        CategoriaLeche c = new CategoriaLeche();
+        String cadena = "SELECT * FROM categorialeche WHERE idCategoria="+id;
+        this.seleccionar(cadena);
+        try {
+            while (rs.next()) {
+                c.setIdCategoria(rs.getInt("idCategoria"));
+                c.setPrecioCategoria(rs.getFloat("precio"));
+                c.setTipoCategoria(rs.getString("tipoCategoria"));
+            }
+            rs.close();
+        } catch (SQLException ex) {
+            ex.getMessage();
+        }
+        return c;
     }
     
 }
