@@ -7,6 +7,7 @@ package Servicios;
 
 import Persistencia.CategoriaMysql;
 import Persistencia.ClienteMysql;
+import Persistencia.TanqueMysql;
 import Persistencia.UsuarioMysql;
 import Persistencia.VacaMysql;
 
@@ -21,15 +22,18 @@ public class Fachada {
     private final ICiudadCRUD ciudadCRUD;
     private final IObjetoCRUD usuarioObjectCRUD;
     private final IUsuarioCRUD usuarioCRUD;
-    private final IObjetoCRUD vacasObjectCRUD;
+    private final IObjetoCRUD vacaObjectCRUD;
     private final ICategoriaCRUD categoriaCRUD;
+    private final IObjetoCRUD tanqueObjectCRUD;
+    
     private Fachada() {
         this.clienteObjectCRUD = new ClienteMysql();
         this.ciudadCRUD = new ClienteMysql();
         this.usuarioObjectCRUD = new UsuarioMysql();
         this.usuarioCRUD = new UsuarioMysql();
-        this.vacasObjectCRUD = new VacaMysql();
+        this.vacaObjectCRUD = new VacaMysql();
         this.categoriaCRUD = new CategoriaMysql();
+        this.tanqueObjectCRUD = new TanqueMysql();
     }
 
     public static Fachada getInstancia() {
@@ -56,10 +60,13 @@ public class Fachada {
     }
     
     public IObjetoCRUD getVacaObjectCRUD(){
-        return vacasObjectCRUD;
+        return vacaObjectCRUD;
     }
     
     public ICategoriaCRUD getCategoriaCRUD(){
         return categoriaCRUD;
+    }
+    public IObjetoCRUD getTanqueObjectCRUD() {
+        return tanqueObjectCRUD;
     }
 }

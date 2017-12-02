@@ -12,11 +12,12 @@ import java.util.ArrayList;
  * @author Luciano
  */
 public class Tanque {
+
     private int idTanque;
     private int numero;
     private int cantLitros;
     private int topeDeLitros;
-    private ArrayList<CategoriaLeche> categoriasDeLeche;
+    private CategoriaLeche categoria;
 
     public int getIdTanque() {
         return idTanque;
@@ -50,11 +51,12 @@ public class Tanque {
         this.topeDeLitros = topeDeLitros;
     }
 
-    public ArrayList<CategoriaLeche> getCategoriasDeLeche() {
-        return categoriasDeLeche;
+    public CategoriaLeche getCategoria() {
+        return categoria;
     }
 
-    public void setCategoriasDeLeche(ArrayList<CategoriaLeche> categoriasDeLeche) {
-        this.categoriasDeLeche = categoriasDeLeche;
+    public void setCategoria(CategoriaLeche categoria) {
+        this.categoria = categoria;
     }
+
 }

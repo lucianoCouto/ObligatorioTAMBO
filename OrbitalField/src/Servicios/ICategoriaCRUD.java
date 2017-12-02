@@ -19,4 +19,5 @@ public interface ICategoriaCRUD {
     public List<CategoriaLeche> listar();
     
     public CategoriaLeche buscar(int id);
+    
 }

@@ -129,4 +129,30 @@ public class Empresa {
         return fachada.getCategoriaCRUD().listar();
     }
     // </editor-fold>
+    
+    // <editor-fold defaultstate="collapsed" desc="Tanques">
+    public void guardarTanque(Tanque t) throws SQLException {
+        this.fachada.getTanqueObjectCRUD().guardar(t);
+    }
+
+    public void modificarTanque(Tanque t) throws SQLException {
+        this.fachada.getTanqueObjectCRUD().modificar(t);
+    }
+
+    public void eliminarTanque(Tanque t) throws SQLException {
+        this.fachada.getTanqueObjectCRUD().eliminar(t);
+    }
+
+    public List<Tanque> listarTanques() {
+        List<Tanque> tanques = new ArrayList<>();
+
+        List<Object> lista = this.fachada.getTanqueObjectCRUD().listar();
+
+        for (int i = 0; i < lista.size(); i++) {
+            Tanque t = (Tanque) lista.get(i);
+            tanques.add(t);
+        }
+        return tanques;
+    }
+    // </editor-fold>
 }
