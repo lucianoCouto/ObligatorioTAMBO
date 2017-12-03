@@ -7,8 +7,6 @@ package Presentacion;
 
 import Dominio.CategoriaLeche;
 import Dominio.Tanque;
-import Dominio.Vaca;
-import java.util.Date;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
 
@@ -21,7 +19,7 @@ class ModeloTblTanque extends AbstractTableModel{
     //Utilizamos Modelos para poder cargar datos a JTable, personalizando los datos que se muestran
     
     private static final int CANT_COLS = 4;
-    private static final String [] NOM_COLS = {"Número", "Stock en Litros", "Tope de Litos", "Categoria de Leche"};
+    private static final String [] NOM_COLS = {"Número", "Stock en Litros", "Tope de Litros", "Categoria de Leche"};
     private List<Tanque> Tanques;
     
     @Override

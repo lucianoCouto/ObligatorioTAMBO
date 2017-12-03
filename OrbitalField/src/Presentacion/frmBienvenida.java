@@ -51,6 +51,7 @@ public class frmBienvenida extends javax.swing.JFrame {
         btnABMCliente = new javax.swing.JMenuItem();
         btnABMVaca = new javax.swing.JMenuItem();
         btnABMUsuario = new javax.swing.JMenuItem();
+        btnABMTanque = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -86,6 +87,14 @@ public class frmBienvenida extends javax.swing.JFrame {
             }
         });
         jMenu1.add(btnABMUsuario);
+
+        btnABMTanque.setText("Tanque");
+        btnABMTanque.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnABMTanqueActionPerformed(evt);
+            }
+        });
+        jMenu1.add(btnABMTanque);
 
         jMenuBar1.add(jMenu1);
 
@@ -148,8 +157,19 @@ public class frmBienvenida extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnABMVacaActionPerformed
 
+    private void btnABMTanqueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnABMTanqueActionPerformed
+        frmABMTanque frmT;
+        try {
+            frmT = frmABMTanque.getInstancia(empresa);
+            frmT.setVisible(true);
+        } catch (SQLException ex) {
+            Logger.getLogger(frmInicio.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnABMTanqueActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem btnABMCliente;
+    private javax.swing.JMenuItem btnABMTanque;
     private javax.swing.JMenuItem btnABMUsuario;
     private javax.swing.JMenuItem btnABMVaca;
     private javax.swing.JLabel jLabel1;

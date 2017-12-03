@@ -45,7 +45,7 @@ public class TanqueMysql extends MySql implements IObjetoCRUD {
     @Override
     public List<Object> listar() {
         List<Object> objetos = new ArrayList<>();
-        this.seleccionar("SELECT * FROM usuarios");
+        this.seleccionar("SELECT * FROM tanques");
         try {
             while (rs.next()) {
                 Tanque t = new Tanque();

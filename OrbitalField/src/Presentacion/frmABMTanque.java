@@ -111,7 +111,7 @@ public class frmABMTanque extends javax.swing.JFrame {
         jLabel1.setText("Numero Tanque");
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        jLabel5.setText("CLIENTES");
+        jLabel5.setText("TANQUE");
 
         jLabel2.setText("Stock en Litros");
 
@@ -263,7 +263,7 @@ public class frmABMTanque extends javax.swing.JFrame {
         t.setTopeDeLitros(Integer.parseInt(this.txtTopeDeLitros.getText()));
         t.setCategoria(empresa.buscarCategoriaXTipo(this.cmbCategoriaLeche.getSelectedItem().toString()));
         try {
-            empresa.eliminarTanque(t);
+            empresa.modificarTanque(t);
         } catch (SQLException ex) {
             Logger.getLogger(frmABMCliente.class.getName()).log(Level.SEVERE, null, ex);
         }
