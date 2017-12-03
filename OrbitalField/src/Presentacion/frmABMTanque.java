@@ -257,6 +257,7 @@ public class frmABMTanque extends javax.swing.JFrame {
 
     private void btnModificarTanqueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarTanqueActionPerformed
         Tanque t = new Tanque();
+        t.setIdTanque(tanque.getIdTanque());
         t.setNumero(Integer.parseInt(this.txtNumeroTanque.getText()));
         t.setCantLitros(Integer.parseInt(this.txtCantidadLitros.getText()));
         t.setTopeDeLitros(Integer.parseInt(this.txtTopeDeLitros.getText()));
