@@ -18,7 +18,7 @@ import java.util.List;
  */
 public class TanqueMysql extends MySql implements IObjetoCRUD {
 
-    private final Fachada fachada = Fachada.getInstancia();
+    private final CategoriaMysql categoriaMysql = new CategoriaMysql();
 
     @Override
     public void guardar(Object o) throws SQLException {
@@ -53,7 +53,7 @@ public class TanqueMysql extends MySql implements IObjetoCRUD {
                 t.setCantLitros(rs.getInt("cantLitros"));
                 t.setTopeDeLitros(rs.getInt("topeTanque"));
                 t.setNumero(rs.getInt("numero"));
-                t.setCategoria(fachada.getCategoriaCRUD().buscar(rs.getInt("idCategoria")));
+                t.setCategoria(categoriaMysql.buscar(rs.getInt("idCategoria")));
                 objetos.add(t);
             }
             rs.close();

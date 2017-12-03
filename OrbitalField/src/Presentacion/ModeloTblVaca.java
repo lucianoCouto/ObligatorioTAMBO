@@ -61,7 +61,7 @@ class ModeloTblVaca extends AbstractTableModel{
             case 2:
                 return Integer.class;
             case 3:
-                return Date.class;
+                return String.class;
             case 4: 
                 return CategoriaLeche.class;
         }

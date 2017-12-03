@@ -72,6 +72,11 @@ public class frmBienvenida extends javax.swing.JFrame {
         jMenu1.add(btnABMCliente);
 
         btnABMVaca.setText("Vaca");
+        btnABMVaca.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnABMVacaActionPerformed(evt);
+            }
+        });
         jMenu1.add(btnABMVaca);
 
         btnABMUsuario.setText("Usuario");
@@ -132,6 +137,16 @@ public class frmBienvenida extends javax.swing.JFrame {
             Logger.getLogger(frmInicio.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnABMClienteActionPerformed
+
+    private void btnABMVacaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnABMVacaActionPerformed
+        frmABMVaca frmV;
+        try {
+            frmV = frmABMVaca.getInstancia(empresa);
+            frmV.setVisible(true);
+        } catch (SQLException ex) {
+            Logger.getLogger(frmInicio.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnABMVacaActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem btnABMCliente;

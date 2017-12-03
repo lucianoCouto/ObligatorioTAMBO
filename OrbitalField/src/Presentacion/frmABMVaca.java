@@ -6,12 +6,12 @@
 package Presentacion;
 
 import Dominio.CategoriaLeche;
-import Dominio.Cliente;
 import Dominio.Empresa;
 import Dominio.Vaca;
-import static Presentacion.frmABMCliente.instancia;
 import java.sql.SQLException;
-import java.util.ArrayList;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -30,8 +30,11 @@ public class frmABMVaca extends javax.swing.JFrame {
     Vaca vaca;
     private final ModeloTblVaca modeloTblVaca;
     private final ListSelectionModel lsmVacas;
+    static SimpleDateFormat formatoDeFecha = new SimpleDateFormat("dd/MM/yyyy");
+
     /**
      * Creates new form frmABMVaca
+     *
      * @param e
      * @throws java.sql.SQLException
      */
@@ -47,11 +50,14 @@ public class frmABMVaca extends javax.swing.JFrame {
         lsmVacas.addListSelectionListener(new frmABMVaca.ListenerVacas());
         tblVacas.setSelectionModel(lsmVacas);
     }
+
     private void listarVacas() throws SQLException {
         modeloTblVaca.setDatos(empresa.listarVacas());
         modeloTblVaca.fireTableDataChanged();
     }
+
     private class ListenerVacas implements ListSelectionListener {
+
         @Override
         public void valueChanged(ListSelectionEvent e) {
             int select = tblVacas.getSelectedRow();
@@ -81,12 +87,13 @@ public class frmABMVaca extends javax.swing.JFrame {
     private void rellenarComboBox() {
         List<CategoriaLeche> categoria = empresa.listarCategoria();
         cmbCategoriaLeche.removeAllItems();
-        for(int i=0;i<categoria.size();i++){
+        for (int i = 0; i < categoria.size(); i++) {
             CategoriaLeche c = categoria.get(i);
             cmbCategoriaLeche.addItem(c.getTipoCategoria());
         }
         this.cmbCategoriaLeche.setSelectedIndex(0);
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -111,7 +118,8 @@ public class frmABMVaca extends javax.swing.JFrame {
         txtRazaVaca = new javax.swing.JTextField();
         txtPesoVaca = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        cldNacimientoVaca = new com.toedter.calendar.JCalendar();
+        jdCFechaDeNacimiento = new com.toedter.calendar.JDateChooser();
+        jLabel6 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -175,6 +183,8 @@ public class frmABMVaca extends javax.swing.JFrame {
 
         jLabel3.setText("Peso (kg)");
 
+        jLabel6.setText("Fecha de nacimiento");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -182,30 +192,22 @@ public class frmABMVaca extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel5)
                     .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jdCFechaDeNacimiento, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                            .addComponent(cmbCategoriaLeche, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(txtCodigoVaca, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtRazaVaca, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtPesoVaca, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 90, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(cmbCategoriaLeche, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(txtCodigoVaca, javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtRazaVaca, javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtPesoVaca, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 90, Short.MAX_VALUE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel2)
-                                    .addComponent(jLabel3)
-                                    .addComponent(jLabel1)
-                                    .addComponent(jLabel4)))
-                            .addComponent(jLabel5))
-                        .addGap(0, 0, 0))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(cldNacimientoVaca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)))
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel6))))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 504, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())
                     .addGroup(layout.createSequentialGroup()
                         .addGap(70, 70, 70)
                         .addComponent(btnGuardarVaca, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -214,8 +216,11 @@ public class frmABMVaca extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnEliminarVaca, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnLimpiar, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addComponent(btnLimpiar, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 504, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(86, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -229,8 +234,7 @@ public class frmABMVaca extends javax.swing.JFrame {
                             .addComponent(btnLimpiar)
                             .addComponent(btnGuardarVaca)
                             .addComponent(btnModificarVaca)
-                            .addComponent(btnEliminarVaca))
-                        .addGap(0, 14, Short.MAX_VALUE))
+                            .addComponent(btnEliminarVaca)))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel5)
                         .addGap(18, 18, 18)
@@ -249,9 +253,12 @@ public class frmABMVaca extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(cmbCategoriaLeche, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel4))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(cldNacimientoVaca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(8, 8, 8))))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jdCFechaDeNacimiento, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel6))
+                        .addGap(107, 107, 107)))
+                .addGap(0, 14, Short.MAX_VALUE))
         );
 
         pack();
@@ -260,10 +267,15 @@ public class frmABMVaca extends javax.swing.JFrame {
     private void btnGuardarVacaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarVacaActionPerformed
         Vaca v = new Vaca();
         v.setCodigoVaca(Integer.parseInt(this.txtCodigoVaca.getText()));
-        v.setRaza(this.txtPesoVaca.getText());
-        v.setPeso(Integer.parseInt(this.txtRazaVaca.getText()));
-        v.setFechaDeNacimiento(this.cldNacimientoVaca.getDate());
+        v.setRaza(this.txtRazaVaca.getText());
+        v.setPeso(Integer.parseInt(this.txtPesoVaca.getText()));
+
+        Date date = this.jdCFechaDeNacimiento.getDate();
+        String fecha = formatoDeFecha.format(date);
+        v.setFechaDeNacimiento(fecha);
+
         v.setCategoriaDeLeche(empresa.buscarCategoriaXTipo(this.cmbCategoriaLeche.getSelectedItem().toString()));
+        v.setEstaActiva(true);
         try {
             empresa.guardarVaca(v);
         } catch (SQLException ex) {
@@ -279,11 +291,17 @@ public class frmABMVaca extends javax.swing.JFrame {
 
     private void btnModificarVacaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarVacaActionPerformed
         Vaca v = new Vaca();
+        v.setIdVaca(vaca.getIdVaca());
         v.setCodigoVaca(Integer.parseInt(this.txtCodigoVaca.getText()));
-        v.setRaza(this.txtPesoVaca.getText());
-        v.setPeso(Integer.parseInt(this.txtRazaVaca.getText()));
-        v.setFechaDeNacimiento(this.cldNacimientoVaca.getDate());
+        v.setRaza(this.txtRazaVaca.getText());
+        v.setPeso(Integer.parseInt(this.txtPesoVaca.getText()));
+        
+        Date date = this.jdCFechaDeNacimiento.getDate();
+        String fecha = formatoDeFecha.format(date);
+        v.setFechaDeNacimiento(fecha);
+        
         v.setCategoriaDeLeche(empresa.buscarCategoriaXTipo(this.cmbCategoriaLeche.getSelectedItem().toString()));
+        v.setEstaActiva(true);
         try {
             empresa.modificarVaca(v);
         } catch (SQLException ex) {
@@ -325,14 +343,15 @@ public class frmABMVaca extends javax.swing.JFrame {
     private javax.swing.JButton btnGuardarVaca;
     private javax.swing.JButton btnLimpiar;
     private javax.swing.JButton btnModificarVaca;
-    private com.toedter.calendar.JCalendar cldNacimientoVaca;
     private javax.swing.JComboBox<String> cmbCategoriaLeche;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JScrollPane jScrollPane2;
+    private com.toedter.calendar.JDateChooser jdCFechaDeNacimiento;
     private javax.swing.JTable tblVacas;
     private javax.swing.JTextField txtCodigoVaca;
     private javax.swing.JTextField txtPesoVaca;

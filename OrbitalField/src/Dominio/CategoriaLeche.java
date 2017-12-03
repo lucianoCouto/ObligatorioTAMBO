@@ -37,6 +37,9 @@ public class CategoriaLeche {
     public void setTipoCategoria(String tipoCategoria) {
         this.tipoCategoria = tipoCategoria;
     }
-    
-    
+
+    @Override
+    public String toString() {
+        return tipoCategoria;
+    }
 }

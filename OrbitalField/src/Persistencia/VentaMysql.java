@@ -19,8 +19,8 @@ import java.util.List;
  */
 public class VentaMysql extends MySql implements IVentaCRUD {
 
-    private final Fachada fachada = Fachada.getInstancia();
-
+    private final ClienteMysql clienteMysql = new ClienteMysql();
+    private final CategoriaMysql categoriaMysql = new CategoriaMysql();
     @Override
     public void guardar(Venta v) {
         strSQL = "INSERT INTO venta (precioTotal, idCliente) VALUES "
@@ -46,7 +46,7 @@ public class VentaMysql extends MySql implements IVentaCRUD {
             while (rs.next()) {
                 Venta v = new Venta();
                 v.setIdVenta(rs.getInt("idVenta"));
-                v.setCliente(fachada.getClienteCRUD().buscar(rs.getInt("idCliente")));
+                v.setCliente(this.clienteMysql.buscar(rs.getInt("idCliente")));
                 v.setPrecioTotal(rs.getFloat("precioTotal"));
                 v.setLineas(this.buscarLineasDeVenta(rs.getInt("idVenta")));
                 ventas.add(v);
@@ -66,7 +66,7 @@ public class VentaMysql extends MySql implements IVentaCRUD {
                 LineaDeVenta l = new LineaDeVenta();
                 l.setIdLineaDeVenta(rs.getInt("idLineaVenta"));
                 l.setCantidadDeLitros(rs.getInt("cantidad"));
-                l.setCategoria(fachada.getCategoriaCRUD().buscar(rs.getInt("idCategoria")));
+                l.setCategoria(categoriaMysql.buscar(rs.getInt("idCategoria")));
                 lineas.add(l);
             }
             rs.close();

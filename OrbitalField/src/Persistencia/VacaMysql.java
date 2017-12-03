@@ -18,27 +18,27 @@ import java.util.List;
  */
 public class VacaMysql extends MySql implements IObjetoCRUD {
 
-    private final Fachada fachada = Fachada.getInstancia();
+    private final CategoriaMysql categoriaMysql = new CategoriaMysql();
 
     @Override
     public void guardar(Object o) throws SQLException {
         Vaca v = (Vaca) o;
         strSQL = "INSERT INTO vacas (codigo, raza, peso, fechaN, estaActiva, idCategoria) VALUES "
-                + "('" + v.getCodigoVaca() + "', '" + v.getRaza() + "', '" + v.getPeso() + "', '" + v.getFechaDeNacimiento() + "', '" + v.getEstaActiva() + "', '" + v.getCategoriaDeLeche().getIdCategoria() + "')";
+                + "('" + v.getCodigoVaca() + "', '" + v.getRaza() + "', '" + v.getPeso() + "', '" + v.getFechaDeNacimiento() + "', " + v.getEstaActiva() + ", '" + v.getCategoriaDeLeche().getIdCategoria() + "')";
         update(strSQL);
     }
 
     @Override
     public void modificar(Object o) {
         Vaca v = (Vaca) o;
-        strSQL = "UPDATE vacas SET codigo = '" + v.getCodigoVaca() + "', raza = '" + v.getRaza() + "', peso = " + v.getPeso() + "', fechaN = " + v.getFechaDeNacimiento() + "', estaActiva = " + v.getEstaActiva() + "', idCategoria = " + v.getCategoriaDeLeche().getIdCategoria();
+        strSQL = "UPDATE vacas SET codigo = " + v.getCodigoVaca() + ", raza = '" + v.getRaza() + "', peso = " + v.getPeso() + ", fechaN = '" + v.getFechaDeNacimiento() + "', estaActiva = " + v.getEstaActiva() + " , idCategoria = " + v.getCategoriaDeLeche().getIdCategoria();
         update(strSQL);
     }
 
     @Override
     public void eliminar(Object o) {
         Vaca v = (Vaca) o;
-        strSQL = "UPDATE FROM vacas SET estaActiva = " + false + " WHERE idVaca = " + v.getIdVaca();
+        strSQL = "UPDATE vacas SET estaActiva = " + false + " WHERE idVaca = " + v.getIdVaca();
         update(strSQL);
     }
 
@@ -53,9 +53,9 @@ public class VacaMysql extends MySql implements IObjetoCRUD {
                 v.setCodigoVaca(rs.getInt("codigo"));
                 v.setRaza(rs.getString("raza"));
                 v.setPeso(rs.getInt("peso"));
-                v.setFechaDeNacimiento(rs.getDate("fechaN"));
+                v.setFechaDeNacimiento(rs.getString("fechaN"));
                 v.setEstaActiva(rs.getBoolean("estaActiva"));
-                v.setCategoriaDeLeche(fachada.getCategoriaCRUD().buscar(rs.getInt("idCategoria")));
+                v.setCategoriaDeLeche(categoriaMysql.buscar(rs.getInt("idCategoria")));
                 objetos.add(v);
             }
             rs.close();
