@@ -59,4 +59,9 @@ public class Tanque {
         this.categoria = categoria;
     }
 
+    @Override
+    public String toString() {
+        return numero + " Tipo: " + categoria;
+    }
+
 }

@@ -52,6 +52,7 @@ public class frmBienvenida extends javax.swing.JFrame {
         btnABMVaca = new javax.swing.JMenuItem();
         btnABMUsuario = new javax.swing.JMenuItem();
         btnABMTanque = new javax.swing.JMenuItem();
+        btnVenta = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -95,6 +96,14 @@ public class frmBienvenida extends javax.swing.JFrame {
             }
         });
         jMenu1.add(btnABMTanque);
+
+        btnVenta.setText("Venta");
+        btnVenta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVentaActionPerformed(evt);
+            }
+        });
+        jMenu1.add(btnVenta);
 
         jMenuBar1.add(jMenu1);
 
@@ -167,11 +176,22 @@ public class frmBienvenida extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnABMTanqueActionPerformed
 
+    private void btnVentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVentaActionPerformed
+        frmVenta frmV;
+        try {
+            frmV = frmVenta.getInstancia(empresa);
+            frmV.setVisible(true);
+        } catch (SQLException ex) {
+            Logger.getLogger(frmInicio.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnVentaActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem btnABMCliente;
     private javax.swing.JMenuItem btnABMTanque;
     private javax.swing.JMenuItem btnABMUsuario;
     private javax.swing.JMenuItem btnABMVaca;
+    private javax.swing.JMenuItem btnVenta;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JMenu jMenu1;

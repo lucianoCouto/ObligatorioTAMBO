@@ -6,7 +6,6 @@
 package Persistencia;
 
 import Dominio.Vaca;
-import Servicios.Fachada;
 import Servicios.IObjetoCRUD;
 import Servicios.IVacaCRUD;
 import java.sql.SQLException;

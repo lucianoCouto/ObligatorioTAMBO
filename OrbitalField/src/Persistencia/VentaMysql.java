@@ -21,6 +21,7 @@ public class VentaMysql extends MySql implements IVentaCRUD {
 
     private final ClienteMysql clienteMysql = new ClienteMysql();
     private final CategoriaMysql categoriaMysql = new CategoriaMysql();
+
     @Override
     public void guardar(Venta v) {
         strSQL = "INSERT INTO venta (precioTotal, idCliente) VALUES "
@@ -76,4 +77,37 @@ public class VentaMysql extends MySql implements IVentaCRUD {
         return lineas;
     }
 
+    @Override
+    public List<LineaDeVenta> listarLineasDeVenta(int idVenta) {
+        List<LineaDeVenta> lineas = new ArrayList<>();
+        this.seleccionar("SELECT * FROM lineaventa WHERE idVenta = " + idVenta);
+        try {
+            while (rs.next()) {
+                LineaDeVenta l = new LineaDeVenta();
+                l.setIdLineaDeVenta(rs.getInt("idLineaVenta"));
+                l.setCantidadDeLitros(rs.getInt("cantidad"));
+                l.setCategoria(categoriaMysql.buscar(rs.getInt("idCategoria")));
+                lineas.add(l);
+            }
+            rs.close();
+        } catch (SQLException ex) {
+            System.err.println("SQLException: " + ex.getMessage());
+        }
+        return lineas;
+    }
+
+    @Override
+    public int buscarUltimoIdVenta() {
+        int cantidad = 0;
+        this.seleccionar("SELECT COUNT( idVenta ) AS idVenta FROM venta");
+        try {
+            while (rs.next()) {
+                cantidad = rs.getInt("idVenta");
+            }
+            rs.close();
+        } catch (SQLException ex) {
+            ex.getMessage();
+        }
+        return cantidad + 1;
+    }
 }

@@ -172,6 +172,12 @@ public class Empresa {
     public List<Venta> listarVentas(){
         return this.fachada.getVentaCRUD().listar();
     }
+    public List<LineaDeVenta> listarLineasDeVenta(int idVenta){
+        return this.fachada.getVentaCRUD().listarLineasDeVenta(idVenta);
+    }
+    public int buscarUltimoIdVenta(){
+        return this.fachada.getVentaCRUD().buscarUltimoIdVenta();
+    }
     // </editor-fold>
     
 }

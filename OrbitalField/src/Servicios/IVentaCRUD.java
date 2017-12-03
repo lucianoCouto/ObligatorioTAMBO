@@ -20,4 +20,8 @@ public interface IVentaCRUD {
     public void guardarLineas(int idVenta, LineaDeVenta linea);
     
     public List<Venta> listar();
+    
+    public List<LineaDeVenta> listarLineasDeVenta(int idVenta);
+    
+    public int buscarUltimoIdVenta();
 }
