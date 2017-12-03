@@ -53,6 +53,8 @@ public class frmBienvenida extends javax.swing.JFrame {
         btnABMUsuario = new javax.swing.JMenuItem();
         btnABMTanque = new javax.swing.JMenuItem();
         btnVenta = new javax.swing.JMenuItem();
+        jMenu2 = new javax.swing.JMenu();
+        btnListadoDeVacas = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -106,6 +108,18 @@ public class frmBienvenida extends javax.swing.JFrame {
         jMenu1.add(btnVenta);
 
         jMenuBar1.add(jMenu1);
+
+        jMenu2.setText("Estadisticas");
+
+        btnListadoDeVacas.setText("Listado de vacas");
+        btnListadoDeVacas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnListadoDeVacasActionPerformed(evt);
+            }
+        });
+        jMenu2.add(btnListadoDeVacas);
+
+        jMenuBar1.add(jMenu2);
 
         setJMenuBar(jMenuBar1);
 
@@ -186,15 +200,27 @@ public class frmBienvenida extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnVentaActionPerformed
 
+    private void btnListadoDeVacasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListadoDeVacasActionPerformed
+        frmListadoDeVacas frmLDeVacas;
+        try {
+            frmLDeVacas = frmListadoDeVacas.getInstancia(empresa);
+            frmLDeVacas.setVisible(true);
+        } catch (SQLException ex) {
+            Logger.getLogger(frmInicio.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnListadoDeVacasActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem btnABMCliente;
     private javax.swing.JMenuItem btnABMTanque;
     private javax.swing.JMenuItem btnABMUsuario;
     private javax.swing.JMenuItem btnABMVaca;
+    private javax.swing.JMenuItem btnListadoDeVacas;
     private javax.swing.JMenuItem btnVenta;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JLabel lblUsuario;
     // End of variables declaration//GEN-END:variables

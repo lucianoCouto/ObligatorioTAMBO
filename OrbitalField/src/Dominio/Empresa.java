@@ -122,6 +122,12 @@ public class Empresa {
     public int pesoPromedioDeUltimas5VacasOrdeñadas(String tipoCategoria){
         return fachada.getVacaCRUD().pesoPromedioDeUltimas5VacasOrdeñadas(tipoCategoria);
     }
+    public Vaca buscarVacaXCaravana(int caravana){
+        return fachada.getVacaCRUD().buscarVacaXCaravana(caravana);
+    }
+    public List<Vaca> listarVacasFiltradas(String filtro){
+        return fachada.getVacaCRUD().listarVacasFiltradas(filtro);
+    }
     // </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="Categorias">

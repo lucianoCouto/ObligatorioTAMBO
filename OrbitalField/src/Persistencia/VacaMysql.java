@@ -81,4 +81,50 @@ public class VacaMysql extends MySql implements IObjetoCRUD, IVacaCRUD {
         return pesoPromedio;
     }
 
+    @Override
+    public Vaca buscarVacaXCaravana(int caravana) {
+        Vaca v = new Vaca();
+        String cadena = "SELECT * FROM vacas WHERE codigo = " + caravana;
+        this.seleccionar(cadena);
+        try {
+            while (rs.next()) {
+                v.setIdVaca(rs.getInt("idVaca"));
+                v.setCodigoVaca(rs.getInt("codigo"));
+                v.setRaza(rs.getString("raza"));
+                v.setPeso(rs.getInt("peso"));
+                v.setFechaDeNacimiento(rs.getString("fechaN"));
+                v.setEstaActiva(rs.getBoolean("estaActiva"));
+                v.setCategoriaDeLeche(categoriaMysql.buscar(rs.getInt("idCategoria")));
+            }
+            rs.close();
+        } catch (SQLException ex) {
+            ex.getMessage();
+        }
+        return v;
+    }
+
+    @Override
+    public List<Vaca> listarVacasFiltradas(String filtro) {
+        List<Vaca> lasVacas = new ArrayList<>();
+        String cadena = "SELECT * FROM vacas WHERE estaActiva <> 0 ORDER BY " + filtro;
+        this.seleccionar(cadena);
+        try {
+            while (rs.next()) {
+                Vaca v = new Vaca();
+                v.setIdVaca(rs.getInt("idVaca"));
+                v.setCodigoVaca(rs.getInt("codigo"));
+                v.setRaza(rs.getString("raza"));
+                v.setPeso(rs.getInt("peso"));
+                v.setFechaDeNacimiento(rs.getString("fechaN"));
+                v.setEstaActiva(rs.getBoolean("estaActiva"));
+                v.setCategoriaDeLeche(categoriaMysql.buscar(rs.getInt("idCategoria")));
+                lasVacas.add(v);
+            }
+            rs.close();
+        } catch (SQLException ex) {
+            ex.getMessage();
+        }
+        return lasVacas;
+    }
+
 }
