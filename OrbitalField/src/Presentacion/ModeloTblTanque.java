@@ -14,7 +14,7 @@ import javax.swing.table.AbstractTableModel;
  *
  * @author Gian
  */
-class ModeloTblTanque extends AbstractTableModel{
+public class ModeloTblTanque extends AbstractTableModel{
 
     //Utilizamos Modelos para poder cargar datos a JTable, personalizando los datos que se muestran
     
@@ -57,7 +57,7 @@ class ModeloTblTanque extends AbstractTableModel{
                 return Integer.class;
             case 2:
                 return Integer.class;
-            case 4: 
+            case 3: 
                 return CategoriaLeche.class;
         }
         return null;

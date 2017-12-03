@@ -31,7 +31,7 @@ public class TanqueMysql extends MySql implements IObjetoCRUD {
     @Override
     public void modificar(Object o) {
         Tanque t = (Tanque) o;
-        strSQL = "UPDATE tanques SET numero = '" + t.getNumero() + "', cantLitros = '" + t.getCantLitros() + "', topeTanque = " + t.getTopeDeLitros() + "', idCategoria = " + t.getCategoria().getIdCategoria() + " WHERE idTanque = " + t.getIdTanque();
+        strSQL = "UPDATE tanques SET numero = " + t.getNumero() + ", cantLitros = " + t.getCantLitros() + ", topeTanque = " + t.getTopeDeLitros() + ", idCategoria = " + t.getCategoria().getIdCategoria() + " WHERE idTanque = " + t.getIdTanque();
         update(strSQL);
     }
 

@@ -7,7 +7,6 @@ package Presentacion;
 
 import Dominio.CategoriaLeche;
 import Dominio.Vaca;
-import java.util.Date;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
 
@@ -15,7 +14,7 @@ import javax.swing.table.AbstractTableModel;
  *
  * @author Gian
  */
-class ModeloTblVaca extends AbstractTableModel{
+public class ModeloTblVaca extends AbstractTableModel{
 
     //Utilizamos Modelos para poder cargar datos a JTable, personalizando los datos que se muestran
     

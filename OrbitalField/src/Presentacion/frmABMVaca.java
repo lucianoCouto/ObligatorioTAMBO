@@ -9,7 +9,6 @@ import Dominio.CategoriaLeche;
 import Dominio.Empresa;
 import Dominio.Vaca;
 import java.sql.SQLException;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -32,12 +31,6 @@ public class frmABMVaca extends javax.swing.JFrame {
     private final ListSelectionModel lsmVacas;
     static SimpleDateFormat formatoDeFecha = new SimpleDateFormat("dd/MM/yyyy");
 
-    /**
-     * Creates new form frmABMVaca
-     *
-     * @param e
-     * @throws java.sql.SQLException
-     */
     public frmABMVaca(Empresa e) throws SQLException {
         initComponents();
         empresa = e;
@@ -121,7 +114,7 @@ public class frmABMVaca extends javax.swing.JFrame {
         jdCFechaDeNacimiento = new com.toedter.calendar.JDateChooser();
         jLabel6 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         btnGuardarVaca.setText("Guardar");
         btnGuardarVaca.addActionListener(new java.awt.event.ActionListener() {

@@ -8,6 +8,7 @@ package Persistencia;
 import Dominio.Vaca;
 import Servicios.Fachada;
 import Servicios.IObjetoCRUD;
+import Servicios.IVacaCRUD;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,7 +17,7 @@ import java.util.List;
  *
  * @author Luciano
  */
-public class VacaMysql extends MySql implements IObjetoCRUD {
+public class VacaMysql extends MySql implements IObjetoCRUD, IVacaCRUD {
 
     private final CategoriaMysql categoriaMysql = new CategoriaMysql();
 
@@ -63,6 +64,22 @@ public class VacaMysql extends MySql implements IObjetoCRUD {
             System.err.println("SQLException: " + ex.getMessage());
         }
         return objetos;
+    }
+
+    @Override
+    public int pesoPromedioDeUltimas5VacasOrdeñadas(String tipoCategoria) {
+        int pesoPromedio = 0;
+        String cadena = "SELECT AVG(vacas.peso) as pesoPromedio FROM ordeñe, vacas, categorialeche WHERE ordeñe.idVaca = vacas.idVaca AND vacas.idCategoria = categorialeche.idCategoria AND categorialeche.tipoCategoria = '" + tipoCategoria + "' LIMIT 0,5 ";
+        this.seleccionar(cadena);
+        try {
+            while (rs.next()) {
+                pesoPromedio = rs.getInt("pesoPromedio");
+            }
+            rs.close();
+        } catch (SQLException ex) {
+            ex.getMessage();
+        }
+        return pesoPromedio;
     }
 
 }

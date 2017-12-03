@@ -27,7 +27,7 @@ public class frmABMTanque extends javax.swing.JFrame {
     Tanque tanque;
     private final ModeloTblTanque modeloTblTanque;
     private final ListSelectionModel lsmTanques;
-    
+
     public frmABMTanque(Empresa e) throws SQLException {
         initComponents();
         empresa = e;
@@ -40,18 +40,20 @@ public class frmABMTanque extends javax.swing.JFrame {
         lsmTanques.addListSelectionListener(new frmABMTanque.ListenerTanques());
         tblTanques.setSelectionModel(lsmTanques);
     }
+
     private void listarTanques() throws SQLException {
         modeloTblTanque.setDatos(empresa.listarTanques());
         modeloTblTanque.fireTableDataChanged();
     }
+
     private class ListenerTanques implements ListSelectionListener {
+
         @Override
         public void valueChanged(ListSelectionEvent e) {
             int select = tblTanques.getSelectedRow();
             if (select != -1) {
                 tanque = modeloTblTanque.getTanque(select);
                 txtNumeroTanque.setText(String.valueOf(tanque.getNumero()));
-                txtCantidadLitros.setText(String.valueOf(tanque.getCantLitros()));
                 txtTopeDeLitros.setText(String.valueOf(tanque.getTopeDeLitros()));
             }
         }
@@ -66,7 +68,6 @@ public class frmABMTanque extends javax.swing.JFrame {
 
     public void limpiar() {
         this.txtNumeroTanque.setText("");
-        this.txtCantidadLitros.setText("");
         this.txtTopeDeLitros.setText("");
         this.cmbCategoriaLeche.getItemAt(0);
     }
@@ -74,7 +75,7 @@ public class frmABMTanque extends javax.swing.JFrame {
     private void rellenarComboBox() {
         List<CategoriaLeche> categoria = empresa.listarCategoria();
         cmbCategoriaLeche.removeAllItems();
-        for(int i=0;i<categoria.size();i++){
+        for (int i = 0; i < categoria.size(); i++) {
             CategoriaLeche c = categoria.get(i);
             cmbCategoriaLeche.addItem(c.getTipoCategoria());
         }
@@ -92,8 +93,6 @@ public class frmABMTanque extends javax.swing.JFrame {
 
         jLabel1 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        txtCantidadLitros = new javax.swing.JTextField();
         txtTopeDeLitros = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         btnGuardarTanque = new javax.swing.JButton();
@@ -106,14 +105,12 @@ public class frmABMTanque extends javax.swing.JFrame {
         txtNumeroTanque = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jLabel1.setText("Numero Tanque");
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jLabel5.setText("TANQUE");
-
-        jLabel2.setText("Stock en Litros");
 
         jLabel3.setText("Tope de Litros");
 
@@ -182,11 +179,9 @@ public class frmABMTanque extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(cmbCategoriaLeche, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(txtNumeroTanque, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtCantidadLitros, javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtTopeDeLitros, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 90, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
                             .addComponent(jLabel3)
                             .addComponent(jLabel1)
                             .addComponent(jLabel4)))
@@ -202,7 +197,7 @@ public class frmABMTanque extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(19, 19, 19)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 296, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(14, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addGap(26, 26, 26)
                 .addComponent(jLabel5)
@@ -210,10 +205,6 @@ public class frmABMTanque extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtNumeroTanque, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtCantidadLitros, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtTopeDeLitros, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -239,7 +230,7 @@ public class frmABMTanque extends javax.swing.JFrame {
     private void btnGuardarTanqueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarTanqueActionPerformed
         Tanque t = new Tanque();
         t.setNumero(Integer.parseInt(this.txtNumeroTanque.getText()));
-        t.setCantLitros(Integer.parseInt(this.txtCantidadLitros.getText()));
+        t.setCantLitros(0);
         t.setTopeDeLitros(Integer.parseInt(this.txtTopeDeLitros.getText()));
         t.setCategoria(empresa.buscarCategoriaXTipo(this.cmbCategoriaLeche.getSelectedItem().toString()));
         try {
@@ -259,7 +250,7 @@ public class frmABMTanque extends javax.swing.JFrame {
         Tanque t = new Tanque();
         t.setIdTanque(tanque.getIdTanque());
         t.setNumero(Integer.parseInt(this.txtNumeroTanque.getText()));
-        t.setCantLitros(Integer.parseInt(this.txtCantidadLitros.getText()));
+        t.setCantLitros(tanque.getCantLitros());
         t.setTopeDeLitros(Integer.parseInt(this.txtTopeDeLitros.getText()));
         t.setCategoria(empresa.buscarCategoriaXTipo(this.cmbCategoriaLeche.getSelectedItem().toString()));
         try {
@@ -305,13 +296,11 @@ public class frmABMTanque extends javax.swing.JFrame {
     private javax.swing.JButton btnModificarTanque;
     private javax.swing.JComboBox<String> cmbCategoriaLeche;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable tblTanques;
-    private javax.swing.JTextField txtCantidadLitros;
     private javax.swing.JTextField txtNumeroTanque;
     private javax.swing.JTextField txtTopeDeLitros;
     // End of variables declaration//GEN-END:variables
